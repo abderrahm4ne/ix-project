@@ -44,17 +44,6 @@ app.get('/', (req, res) => {
 
 mongoConnection;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-if (process.env.NODE_ENV === 'production') {
-  const clientPath = path.resolve(__dirname, '../../frontend', 'build');
-  app.use(express.static(clientPath));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(clientPath, 'index.html'));
-  });
-}
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
