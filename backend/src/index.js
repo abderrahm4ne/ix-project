@@ -15,9 +15,13 @@ dotenv.config()
 const app = express();
 
 app.use(helmet());
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.CLIENT_URL,
+];
 app.use(cors(
     {
-        origin: "http://localhost:5173",
+        origin: allowedOrigins,
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
 
@@ -39,6 +43,18 @@ app.get('/', (req, res) => {
 });
 
 mongoConnection;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+if (process.env.NODE_ENV === 'production') {
+  const clientPath = path.resolve(__dirname, '../../frontend', 'build');
+  app.use(express.static(clientPath));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientPath, 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
