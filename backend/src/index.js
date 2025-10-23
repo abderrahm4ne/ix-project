@@ -16,12 +16,11 @@ const app = express();
 
 app.use(helmet());
 const allowedOrigins = [
-  'http://localhost:5173',
-  process.env.FRONTEND_URL,
+
 ];
 app.use(cors(
     {
-        origin: allowedOrigins,
+        origin: ['http://localhost:5173', process.env.FRONTEND_URL],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
 
