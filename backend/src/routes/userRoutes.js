@@ -69,7 +69,7 @@ router.post('/admin/login', async (req, res) => {
         res.cookie("adminToken", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 60 * 60 * 1000
         });
 
