@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema({
     email: { type: String },
     phone: { type: String },
     address: { type: String, required: true },
-    Wilaya: { type: String, required: true}
+    Wilaya: { type: String, required: true }
   },
   items: [
     {
@@ -14,22 +14,22 @@ const orderSchema = new mongoose.Schema({
       name: { type: String, required: true },
       quantity: { type: Number, required: true, min: 1 },
       price: { type: Number, required: true },
-      reference: { type: String, required: true}
+      reference: { type: String, required: true }
     }
   ],
   total: { type: Number, required: true },
-  paymentMethod: { 
-    type: String, 
-    enum: ["Cash on Delivery"], 
-    default: "Cash on Delivery" 
+  paymentMethod: {
+    type: String,
+    enum: ["Cash on Delivery"],
+    default: "Cash on Delivery"
   },
-  status: { 
-    type: String, 
-    enum: ["pending", "paid", "shipped", "delivered", "cancelled"], 
-    default: "pending" 
+  status: {
+    type: String,
+    enum: ["pending", "paid", "shipped", "delivered", "cancelled"],
+    default: "pending"
   },
   createdAt: { type: Date, default: Date.now },
-  orderNumber: { type: String, unique: true, required: true }
+  orderNumber: { type: String, unique: true }
 });
 
 const Order = mongoose.model("Order", orderSchema);
