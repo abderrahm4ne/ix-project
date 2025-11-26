@@ -1,0 +1,37 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+        VITE_CLOUD_NAME: ${VITE_CLOUD_NAME}
+        VITE_CLOUD_UPLOAD_PRESET: ${VITE_CLOUD_UPLOAD_PRESET}
+    ports:
+      - "3000:3000"
+    image: abderrahman4ne/ix-app:latest
+    container_name: ix-container
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    networks:
+      - ix-network
+
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+    volumes:
+      - ix-volume:/data/db
+    networks:
+      - ix-network
+
+
+volumes:
+  ix-volume:
+
+networks:
+  ix-network:
+    external: true

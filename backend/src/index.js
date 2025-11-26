@@ -10,14 +10,26 @@ import contactRoutes from './routes/contactRoutes.js'
 import cookieParser from 'cookie-parser'
 import upload from '../uploads/upload.js';
 
+// static file 
+
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 dotenv.config()
 
 const app = express();
 
 app.use(helmet());
+
 const allowedOrigins = [
 
 ];
+
+app.use(express.static(path.join(__dirname, "../public")));
+
 app.use(cors(
     {
         origin: ['http://localhost:5173', process.env.FRONTEND_URL],
@@ -35,10 +47,12 @@ app.use('/api', orderRoutes);
 app.use('/api', contactRoutes);
 app.use('/api', upload);
 
-
-
 app.get('/', (req, res) => {
     res.send('API is running...');
+});
+
+app.get(/.*/, (_, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 mongoConnection;
