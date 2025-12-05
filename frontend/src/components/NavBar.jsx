@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="flex flex-col">

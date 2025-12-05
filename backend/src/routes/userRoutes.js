@@ -39,7 +39,7 @@ router.post('/register', validateUser, async (req, res) => {
         })
         
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error', err: error.message });
+        res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 
 });
@@ -75,14 +75,8 @@ router.post('/admin/login', async (req, res) => {
 
         res.status(200).json({ message : 'Login successful', token: token})
     } catch (error) {
-        if (err.response) {
-            console.error("Error status:", err.response.status);
-            console.error("Error data:", err.response.data);
-        } else if (err.request) {
-            console.error("No response:", err.request);
-        } else {
-            console.error("Error message:", err.message);
-  }
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 })
 
