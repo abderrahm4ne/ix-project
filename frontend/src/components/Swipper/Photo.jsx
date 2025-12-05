@@ -43,12 +43,14 @@ export default function Photo() {
         src={images[(current + 1) % images.length]}
         alt="Behind Right"
         className="absolute xl:w-[420px] xl:h-[740px] md:w-[300px] md:h-[500px] w-[330px] h-[550px] ml-8 rounded-xl shadow-md opacity-70 sm:mb-20 "
+        loading="lazy"
         style={{ rotate: "3deg", boxShadow: "6px -3px 10px #333333" }}
       />
 
       <img
         ref={leftImgRef}
         src={images[(current + 2) % images.length]}
+        loading="lazy"
         alt="Behind Left"
         className="absolute xl:w-[420px] xl:h-[740px] md:w-[300px] md:h-[500px] w-[330px] h-[550px] mr-8 rounded-xl shadow-md opacity-70 sm:mb-20"
         style={{ rotate: "-3deg", boxShadow: "-6px -3px 10px #333333" }}
@@ -58,6 +60,7 @@ export default function Photo() {
         key={current}
         ref={mainImgRef}
         src={images[current]}
+        loading="lazy"
         alt="Main"
         className="relative xl:w-[420px] xl:h-[740px] md:w-[300px] md:h-[500px] w-[330px] h-[550px] rounded-xl shadow-lg sm:mb-20"
         style={{ boxShadow: "0px 2px 10px #333333" }}

@@ -292,6 +292,7 @@ export default function AdminProductsPage() {
                               <img 
                                 key={index}
                                 src={image} 
+                                loading="lazy"
                                 alt={`${product.name} ${index + 1}`} 
                                 className="w-12 h-12 object-cover rounded fit-cover"
                               />
@@ -470,9 +471,10 @@ export default function AdminProductsPage() {
                   <div className="flex flex-wrap gap-4 mb-4">
                     {formData.images.map((imageUrl, index) => (
                       <div key={index} className="relative group">
-                        <img 
+                        <img
                           src={imageUrl} 
-                          alt={`Preview ${index + 1}`} 
+                          alt={`Preview ${index + 1}`}
+                          loading="lazy" 
                           className="w-24 h-24 object-cover rounded-lg border-2 border-creamy"
                         />
                         <button

@@ -223,6 +223,7 @@ export default function ProductsPage() {
                     <img
                       src={product.mainImage}
                       alt={product.name}
+                      loading="lazy"
                       className="w-full h-64 object-contain rounded-xl "
                     />
                   </div>
