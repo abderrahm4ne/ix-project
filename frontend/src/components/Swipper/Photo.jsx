@@ -69,9 +69,9 @@ export default function Photo() {
 
       <div className="absolute bottom-7 flex space-x-4">
 
-        <NavigateBeforeIcon onClick={prevImage} className="creamy hover:cursor-pointer btn" style={{fontSize:"2rem"}}/>
+        <NavigateBeforeIcon onClick={prevImage} className="text-textLight hover:cursor-pointer btn" style={{fontSize:"2rem"}}/>
 
-        <NavigateNextIcon onClick={nextImage} className="creamy hover:cursor-pointer btn" style={{fontSize:"2rem"}}/>
+        <NavigateNextIcon onClick={nextImage} className="text-textLight hover:cursor-pointer btn" style={{fontSize:"2rem"}}/>
 
       </div>
     </div>

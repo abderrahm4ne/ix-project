@@ -7,27 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-
-  const handleSearch = (e) => {
-    if (e.key === 'Enter' && searchQuery.trim()) {
-      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchOpen(false);
-      setSearchQuery("");
-    }
-  };
-
-  const handleSearchClick = () => {
-    if (searchOpen && searchQuery.trim()) {
-      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchOpen(false);
-      setSearchQuery("");
-    } else {
-      setSearchOpen(!searchOpen);
-    }
-  };
 
   return (
     <div className="flex flex-col">
@@ -53,31 +33,12 @@ export default function NavBar() {
 
         {/* Right - Icons */}
         <div className="flex-1 flex justify-end items-center space-x-3">
-          {/* Search Field */}
-          {searchOpen && (
-            <div className="mr-4 transition-all duration-300 ease-in-out">
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={handleSearch}
-                autoFocus
-                className="px-4 py-2 text-xl rounded-full bg-transparent border border-[#3B3B3B] text-[#3B3B3B] placeholder-[#3B3B3B] font-bold focus:outline-none focus:ring-2 focus:ring-[#ffffff] w-48 md:w-64 transition-all duration-300"
-              />
-            </div>
-          )}
+          
 
           <NavLink to="CompleteYourOrder"> 
             <ShoppingCartIcon style={{ fontSize: '2.1rem' }} className=" brand-title cursor-pointer routes"/>
           </NavLink>
           
-          <SearchIcon 
-            style={{ fontSize: '2.1rem' }} 
-            onClick={handleSearchClick}
-            className="brand-title cursor-pointer routes" 
-          />
-
           <button className="sm:hidden" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? (
               <CloseIcon style={{ fontSize: '2.1rem' }} className=" brand-title cursor-pointer routes" />
