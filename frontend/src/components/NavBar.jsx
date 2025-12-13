@@ -1,14 +1,34 @@
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { useRef, useEffect } from "react";
+import { duration } from "@mui/material/styles";
+
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+
+  const menuRef = useRef(null);
+
+
+
+  useEffect(() => {
+    if (!menuRef.current) return;
+
+    gsap.to(menuRef.current, {
+      y: menuOpen ? 0 : -20,
+      opacity: menuOpen ? 1 : 0,
+      pointerEvents: menuOpen ? "auto" : "none",
+      duration: 0.25,
+      ease: "power2.out",
+    });
+  }, [menuOpen]);
 
   return (
     <div className="flex flex-col">
@@ -50,37 +70,25 @@ export default function NavBar() {
         </div>
       </div>
 
+<div className="flex flex-col relative z-10">
+        <div
+            ref={menuRef}
+            className="sm:hidden absolute top-full left-0 right-0 bg-gradient-to-b from-[#ffffff] to-[#949494] border-b flex flex-col z-50"
+        >
+                <NavLink to="" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 border-b w-full" onClick={() => setMenuOpen(false)}>HOME</NavLink>
+                <NavLink to="products" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 border-b w-full" onClick={() => setMenuOpen(false)}>PRODUCTS</NavLink>
+                <NavLink to="contact" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 w-full" onClick={() => setMenuOpen(false)}>CONTACT</NavLink> 
+              </div>
+</div>
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="sm:hidden bg-gradient-to-b from-[#ffffff] to-[#949494] border-b flex flex-col">
-          {/* Mobile Search Field */}
-          <div className="px-4 py-3 border-b">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter' && searchQuery.trim()) {
-                  navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-                  setMenuOpen(false);
-                  setSearchQuery("");
-                }
-              }}
-              className="w-full px-4 py-2 rounded-full text-xl bg-transparent border border-[#3B3B3B] text-[#f8f3e9] brand-title placeholder-[#3B3B3B] focus:outline-none focus:ring-2 focus:ring-[#ffffff]"
-            />
-          </div>
-          
-          <NavLink to="" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 border-b w-full" onClick={() => setMenuOpen(false)}>HOME</NavLink>
-          <NavLink to="products" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 border-b w-full" onClick={() => setMenuOpen(false)}>PRODUCTS</NavLink>
-          <NavLink to="contact" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 w-full" onClick={() => setMenuOpen(false)}>CONTACT</NavLink>
-        </div>
-      )}
+      
 
+      
+  
       <Outlet />
 
       <div className="w-full bg-[#dbdbdb] brand-title text-center py-5.5 text-xl font-routes flex flex-col items-center justify-center">
-        &copy; {new Date().getFullYear()} IMEX ~ ALGEIRA
+        &copy; {new Date().getFullYear()} © {new Date().getFullYear()} IMEX ~ ALGERIA
         <h3 className="text-lg"></h3>
         <h3 className="text-lg"></h3>
       </div>
