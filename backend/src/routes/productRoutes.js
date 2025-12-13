@@ -78,7 +78,7 @@ router.put('/admin/update/product/:id', adminAuthentication, async (req, res) =>
 
 
     try {
-        if (!name || !description || (!price || price === 0) || !category || !stock) {
+        if (!name || !description || (!price || price === 0) || !category || (!stock || stock === 0)) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
