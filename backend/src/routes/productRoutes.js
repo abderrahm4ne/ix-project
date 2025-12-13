@@ -78,11 +78,11 @@ router.put('/admin/update/product/:id', adminAuthentication, async (req, res) =>
 
 
     try {
-        if (!name || !description || !price || !category || !stock) {
+        if (!name || !description || (!price || price === 0) || !category || !stock) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        if (!images || !Array.isArray(images) || images.length === 0) {
+        if (!Array.isArray(images) || images.length === 0) {
             return res.status(400).json({ message: 'At least one image is required' });
         }
 

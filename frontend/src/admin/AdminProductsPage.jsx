@@ -161,7 +161,14 @@ export default function AdminProductsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.description || !formData.reference || !formData.price || !formData.category || !formData.stock) {
+    if (
+        formData.name.trim() === "" ||
+        formData.description.trim() === "" ||
+        formData.reference.trim() === "" ||
+        formData.price === "" || 
+        formData.category.trim() === "" ||
+        formData.stock === ""
+      ) {
       showSnackbar("Please fill in all required fields", "error");
       return;
     }
