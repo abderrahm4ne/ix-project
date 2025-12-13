@@ -161,8 +161,8 @@ export default function ProductPage() {
         <div className="flex flex-col lg:flex-row gap-10 mb-16">
 
           {/* Product Images */}
-          <div className="lg:w-1/2">
-            <div className="bg-[#dbdbdb] rounded-2xl p-6 shadow-lg"
+          <div className="lg:w-1/2 border-1 border-black rounded-2xl">
+            <div className="bg-[#dbdbdb] rounded-2xl p-6"
             style={{boxShadow:"-3px 3px 2px rgba(0, 0, 0, 0.3)"}}>
               <div className="bg-white rounded-md">
                   <img
@@ -196,7 +196,7 @@ export default function ProductPage() {
 
           {/* Product Info */}
           <div className="lg:w-1/2 ">
-            <div className=" bg-gradient-to-r from-[#ffffff] to-[#949494] rounded-2xl p-6 shadow-lg" style={{boxShadow:"-3px 3px 2px rgba(0, 0, 0, 0.3)"}}>
+            <div className=" bg-gradient-to-r from-[#ffffff] to-[#949494] rounded-2xl border-1 border-black p-6 shadow-lg">
               <h1 className="text-3xl md:text-4xl brand-title mb-2">{product.name}</h1>
               <h3 className="text-xl font-bold text-black mr-4 mb-3">REFERENCE : {product.reference}</h3>
               <h3 className="text-xl md:text-xl brand-title "><span className="font-bold">DETAILS : </span>{product.description}</h3>

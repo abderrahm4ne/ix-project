@@ -52,7 +52,7 @@ export default function ProductsPage() {
 
     // Filter by category
     if (selectedCategory !== "ALL") {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+      filtered = filtered.filter(product => (product.category).toUpperCase() === selectedCategory);
     }
 
     // Filter by search query
@@ -171,7 +171,7 @@ export default function ProductsPage() {
       {/* Category Filters */}
       <div className="container justify-center mx-auto px-6 mb-12">
         <div className="flex flex-wrap justify-center items-baseline space-x-4 space-y-3 md:space-x-8 font-routes ">
-          {["ALL", "DOUCHETTE", "COLOGNE", "AVABO", "DOUCHETTE ENCASTRE", "ROBINET DE BAIN"].map(category => (
+          {["ALL", "DOUCHE", "COLOGNE", "AVABO", "DOUCHE ENCASTRE", "ROBINET DE BAIN"].map(category => (
             <button
               key={category}
               className={`px-4 py-2 rounded-full btn transition-all text-xl ${
@@ -218,33 +218,33 @@ export default function ProductsPage() {
               </div>
             ) : (
               filteredProducts.map(product => (
-                <NavLink key={product._id} to={`/products/${product.category}/${product.slug}`} className="bg-[#dbdbdb] rounded-2xl shadow-lg hover:shadow-2xl overflow-hidden border-1 border-[#000000] px-3 py-10">
-                  <div className="bg-white">
+                <NavLink key={product._id} to={`/products/${product.category}/${product.slug}`} className="bg-[#dbdbdb] rounded-2xl shadow-lg hover:shadow-2xl px-7 py-5 border-1 border-[#000000]">
+                  <div className="bg-white rounded-xl">
                     <img
                       src={product.mainImage}
                       alt={product.name}
                       loading="lazy"
-                      className="w-full h-64 object-contain rounded-xl "
+                      className="w-full h-64 object-contain rounded-xl border-1 border-black"
                     />
                   </div>
                   
-                  <div className="p-6 flex flex-col justify-between h-75">
+                  <div className="p-6 flex flex-col justify-between">
                     <div>
-                      <h3 className="text-2xl brand-title mb-2 group-hover:text-[#f8f3e9] transition-colors h-17">
+                      <h3 className="text-2xl brand-titlegroup-hover:text-[#f8f3e9] transition-colors pb-7">
                         {product.name}
                       </h3>
-                      <p className="text-black font-bold text-xl line-clamp-3 mb-2 h-8">
+                      <p className="text-black font-bold text-xl line-clamp-3 pb-2">
                         REFERENCE : {product.reference}
                       </p>
-                      <p className="brand-title text-xl line-clamp-3 h-20">
-                        <span className="font-bold">DETAILS : </span>{product.description}
+                      <p className="brand-title text-xl line-clamp-3 pb-10">
+                        <span className="font-bold">DETAILS : </span>{(product.description).length > 95 ? (product.description).slice(0, 95) + ".." : product.description}
                       </p>
-                      <p className="brand-title text-md line-clamp-3 ">
+                      <p className="brand-title text-xl line-clamp-3 pb-10">
                         <span className="font-bold">CATEGORY : </span>{product.category}
                       </p>
                     </div>
 
-                    <div className="flex justify-between items-center mt-4">
+                    <div className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-red-600">{product.price} DZD</span>
                       <button 
                         className="px-5 bg-[#3B3B3B] py-3 rounded-full text-[#ffffff] hover:bg-[#2b2b2b] transition-all btn hover:cursor-pointer text-xl"
