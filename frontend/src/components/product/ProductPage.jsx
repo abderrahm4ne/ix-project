@@ -179,7 +179,7 @@ export default function ProductPage() {
                       key={index}
                       onClick={() => setSelectedImage(index)}
                       className={`w-20 h-20 rounded-lg border-1 ${
-                        selectedImage === index ? 'border-orange-400' : 'border-white'
+                        selectedImage === index ? 'border-orange-400' : 'border-black'
                       }`}
                     >
                       <img
@@ -197,10 +197,10 @@ export default function ProductPage() {
           {/* Product Info */}
           <div className="lg:w-1/2 ">
             <div className=" bg-gradient-to-r from-[#ffffff] to-[#949494] rounded-2xl border-1 border-black p-6 shadow-lg">
-              <h1 className="text-3xl md:text-4xl brand-title mb-2">{product.name}</h1>
-              <h3 className="text-xl font-bold text-black mr-4 mb-3">REFERENCE : {product.reference}</h3>
-              <h3 className="text-xl md:text-xl brand-title "><span className="font-bold">DETAILS : </span>{product.description}</h3>
-              <h3 className="text-xl md:text-xl brand-title mb-8"><span className="font-bold">CATEGORY : </span>{product.category}</h3>
+              <h1 className="text-3xl md:text-4xl brand-title pt-3 pb-4">{product.name}</h1>
+              <h3 className="text-xl font-bold text-black mr-4 mb-3"> <span className="text-[#cf5504]">Reference :</span> {product.reference}</h3>
+              <h3 className="text-xl md:text-xl brand-title pb-2"><span className="font-bold text-[#cf5504]">Details : </span>{product.description}</h3>
+              <h3 className="text-xl md:text-xl brand-title mb-8"><span className="font-bold text-[#cf5504]">Category : </span>{product.category}</h3>
 
               <div className="flex items-center mb-6">
                 <span className="text-2xl font-bold text-red-600 mr-4">{product.price} DZD</span>
@@ -239,7 +239,7 @@ export default function ProductPage() {
                   disabled={!product.stock}
                   onClick={() => addToCart(product, quantity)}
                   sx={{
-                    backgroundColor: product.stock ? '#750202' : '#333232',
+                    backgroundColor: product.stock ? '#cf5504' : '#333232',
                     color: '#f8f3e9',
                     padding: '12px 24px',
                     fontSize: '1.1rem',
@@ -247,7 +247,7 @@ export default function ProductPage() {
                     flex: 1,
                     cursor: 'pointer',
                     '&:hover': {
-                      backgroundColor: product.stock ? '#a50303' : '#444', // darker red or gray
+                      backgroundColor: product.stock ? '#cf5f24' : '#444', // darker red or gray
                     },
                   }}
                 >
@@ -279,7 +279,11 @@ export default function ProductPage() {
         </div>
 
         {/* Related Products */}
-        {relatedProducts.length > 0 && (
+        {relatedProducts.length === 0 ? (
+          <div className="mb-16 border-t-1 border-[#000000] pt-10">
+            <h2 className="text-5xl font-logo brand-title mb-8 text-center">There is no products related to {product.reference}</h2>
+          </div>
+        ) : (
           <div className="mb-16 border-t-1 border-[#000000] pt-10">
             <h2 className="text-5xl font-logo brand-title mb-8 text-center">Related Products</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

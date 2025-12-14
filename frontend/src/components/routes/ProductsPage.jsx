@@ -228,26 +228,26 @@ export default function ProductsPage() {
                     />
                   </div>
                   
-                  <div className="p-6 flex flex-col justify-between">
+                  <div className="px-3 py-7 flex flex-col justify-between">
                     <div>
-                      <h3 className="text-2xl brand-titlegroup-hover:text-[#f8f3e9] transition-colors pb-7">
+                      <h3 className="text-xl brand-title group-hover:text-[#f8f3e9] transition-colors pb-7">
                         {product.name}
                       </h3>
-                      <p className="text-black font-bold text-xl line-clamp-3 pb-2">
-                        REFERENCE : {product.reference}
+                      <p className="brand-title text-xl line-clamp-3 pb-10">
+                        <span className="font-bold text-[#cf5504]">Details : </span>{(product.description).length > 95 ? (product.description).slice(0, 95) + ".." : product.description}
+                      </p>
+                      <p className="font-bold text-xl line-clamp-3 pb-2">
+                        <span className="text-[#cf5504]">Reference</span> : {product.reference}
                       </p>
                       <p className="brand-title text-xl line-clamp-3 pb-10">
-                        <span className="font-bold">DETAILS : </span>{(product.description).length > 95 ? (product.description).slice(0, 95) + ".." : product.description}
-                      </p>
-                      <p className="brand-title text-xl line-clamp-3 pb-10">
-                        <span className="font-bold">CATEGORY : </span>{product.category}
+                        <span className="font-bold text-[#cf5504]">Category : </span>{(product.category).toUpperCase()}
                       </p>
                     </div>
 
                     <div className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-red-600">{product.price} DZD</span>
                       <button 
-                        className="px-5 bg-[#3B3B3B] py-3 rounded-full text-[#ffffff] hover:bg-[#2b2b2b] transition-all btn hover:cursor-pointer text-xl"
+                        className="px-5 bg-[#cf5504] py-3 rounded-full text-[#ffffff] hover:bg-[#2b2b2b] border-1 border-black transition-all btn hover:cursor-pointer text-xl"
                         onClick={(e) => {
                           e.preventDefault();
                           addToCart(product);
