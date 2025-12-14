@@ -32,7 +32,9 @@ export default function ProductsPage() {
     const fetchProducts = async () => {
       try{
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`)
-        setProducts(res.data)
+
+        const arrayOfData = Array.isArray(res.data) ?   res.data : res.data.products || [];
+        setProducts(arrayOfData)
       }
       catch(err){
         setError(err);
@@ -126,7 +128,7 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#ffffff] to-[#949494] brand-title pb-20">
+    <div className="min-h-screen bg-gradient-to-r from-[#ffffff] to-[#949494] brand-title pb-20 pt-5">
       
       {/* Hero Section */}
       <div className="container mx-auto px-6 mb-16 mt-10 text-center ">
