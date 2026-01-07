@@ -10,8 +10,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger as scrollTrigger } from "gsap/all";
 
-gsap.registerPlugin(useGSAP);
-gsap.registerPlugin(scrollTrigger);
+gsap.registerPlugin(useGSAP, scrollTrigger);
 
 const images = [
   img1,

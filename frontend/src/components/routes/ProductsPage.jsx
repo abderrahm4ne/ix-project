@@ -1,10 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
 import axios from "axios"
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger as scrollTrigger } from "gsap/all";
 
 export default function ProductsPage() {
   const navigate = useNavigate();
@@ -68,6 +72,66 @@ export default function ProductsPage() {
 
     setFilteredProducts(filtered);
   }, [products, selectedCategory, searchQuery]);
+
+  useEffect(() => {
+    const onResize = () => ScrollTrigger.refresh();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+
+  // gsap section 
+  gsap.registerPlugin(gsap, scrollTrigger);
+
+  const getPacketSize = () => {
+      const w = window.innerWidth;
+      if (w >= 1024) return 3;
+      if (w >= 640) return 2;
+      return 1;
+    };
+
+  const chunkArray = (arr, size) => {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += size) {
+      chunks.push(arr.slice(i, i + size));
+    }
+    return chunks;
+  };
+  const itemsRef = useRef([]);
+
+  const packetSize = getPacketSize();
+  const packets = chunkArray(filteredProducts, packetSize);
+
+
+  useGSAP( () => {
+    if(filteredProducts === null || filteredProducts.length === 0) return;
+
+      for (let i = 0; i < itemsRef.current.length; i++ ) {
+        gsap.set(itemsRef.current, { opacity: 0, y: 20 });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: itemsRef.current,
+              markers: true,
+              start: "top 80%",
+              end:"top 50%",
+              toggleActions: "play resume "
+            }
+          });
+          tl.to(itemsRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            stagger:{
+                amount:2,
+                each:0.2,
+            }
+        });
+      }
+        
+  }, {dependencies: [filteredProducts, packets], scope: itemsRef});
+
+
 
   const getCart = () => {
     const cart = localStorage.getItem('cart');
@@ -219,44 +283,44 @@ export default function ProductsPage() {
                 )}
               </div>
             ) : (
-              filteredProducts.map(product => (
-                <NavLink key={product._id} to={`/products/${product.category}/${product.slug}`} className="bg-[#dbdbdb] rounded-2xl shadow-lg hover:shadow-2xl px-7 py-5 border-1 border-[#000000]">
-                  <div className="bg-white rounded-xl">
-                    <img
-                      src={product.mainImage}
-                      alt={product.name}
-                      loading="lazy"
-                      className="w-full h-64 object-contain rounded-xl border-1 border-black"
-                    />
-                  </div>
-                  
-                  <div className="px-3 py-7 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-xl brand-title group-hover:text-[#f8f3e9] transition-colors pb-7">
-                        {product.name}
-                      </h3>
-                      <p className="font-bold text-xl line-clamp-3 pb-2">
-                        <span className="text-[#cf5504]">Reference</span> : {product.reference}
-                      </p>
-                      <p className="brand-title text-xl line-clamp-3 pb-10">
-                        <span className="font-bold text-[#cf5504]">Category : </span>{(product.category).toUpperCase()}
-                      </p>
-                    </div>
+              filteredProducts.map((product, index) => (
+                      <NavLink key={product._id} ref={i => (itemsRef.current[index] = i)} to={`/products/${product.category}/${product.slug}`} className="bg-[#dbdbdb] rounded-2xl shadow-lg hover:shadow-2xl px-7 py-5 border-1 border-[#000000]">
+                      <div className="bg-white rounded-xl">
+                        <img
+                          src={product.mainImage}
+                          alt={product.name}
+                          loading="lazy"
+                          className="w-full h-64 object-contain rounded-xl border-1 border-black"
+                        />
+                      </div>
+                      
+                      <div className="px-3 py-7 flex flex-col justify-between">
+                        <div>
+                          <h3 className="text-xl brand-title group-hover:text-[#f8f3e9] transition-colors pb-7">
+                            {product.name}
+                          </h3>
+                          <p className="font-bold text-xl line-clamp-3 pb-2">
+                            <span className="text-[#cf5504]">Reference</span> : {product.reference}
+                          </p>
+                          <p className="brand-title text-xl line-clamp-3 pb-10">
+                            <span className="font-bold text-[#cf5504]">Category : </span>{(product.category).toUpperCase()}
+                          </p>
+                        </div>
 
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-red-600">{product.price} DZD</span>
-                      <button 
-                        className="px-5 bg-[#cf5504] py-3 rounded-full text-[#ffffff] hover:bg-[#2b2b2b] border-1 border-black transition-all btn hover:cursor-pointer text-xl"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          addToCart(product);
-                        }}
-                      >
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </NavLink>
+                        <div className="flex justify-between items-center">
+                          <span className="text-2xl font-bold text-red-600">{product.price} DZD</span>
+                          <button 
+                            className="px-5 bg-[#cf5504] py-3 rounded-full text-[#ffffff] hover:bg-[#2b2b2b] border-1 border-black transition-all btn hover:cursor-pointer text-xl"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              addToCart(product);
+                            }}
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
+                      </div>
+                    </NavLink>
               ))
             )
           }
