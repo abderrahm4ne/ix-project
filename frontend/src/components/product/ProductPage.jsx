@@ -281,7 +281,7 @@ export default function ProductPage() {
         {/* Related Products */}
         {relatedProducts.length === 0 ? (
           <div className="mb-16 border-t-1 border-[#000000] pt-10">
-            <h2 className="text-5xl font-logo brand-title mb-8 text-center">There is no products related to {product.reference}</h2>
+            <h2 className="text-5xl font-logo brand-title mb-8 text-center">{product.reference}</h2>
           </div>
         ) : (
           <div className="mb-16 border-t-1 border-[#000000] pt-10">
@@ -301,7 +301,7 @@ export default function ProductPage() {
                     />
                   </div>
                   
-                  <div className="p-6">
+                  <div className="px-4 py-6">
                     <h3 className="text-xl font-semibold creamy mb-2 brand-title">
                       {relatedProduct.name}
                     </h3>

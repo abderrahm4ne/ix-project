@@ -235,9 +235,6 @@ export default function ProductsPage() {
                       <h3 className="text-xl brand-title group-hover:text-[#f8f3e9] transition-colors pb-7">
                         {product.name}
                       </h3>
-                      <p className="brand-title text-xl line-clamp-3 pb-10">
-                        <span className="font-bold text-[#cf5504]">Details : </span>{(product.description).length > 95 ? (product.description).slice(0, 95) + ".." : product.description}
-                      </p>
                       <p className="font-bold text-xl line-clamp-3 pb-2">
                         <span className="text-[#cf5504]">Reference</span> : {product.reference}
                       </p>

@@ -5,6 +5,14 @@ import img1 from '../../assets/img1.jpeg'
 import img2 from '../../assets/img2.jpeg'
 import img3 from '../../assets/img3.jpeg'
 
+// gsap 
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger as scrollTrigger } from "gsap/all";
+
+gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(scrollTrigger);
+
 const images = [
   img1,
   img2,
@@ -12,6 +20,14 @@ const images = [
 ];
 
 export default function Photo() {
+
+const container = useRef(null);
+
+useGSAP( () => {
+  const tl = gsap.timeline();
+  gsap.set(container.current, { y: -50, opacity: 0 });
+  tl.to(container.current, { y: 0, opacity: 1, duration: 0.5, ease: "powe3.out"})
+}, {scope: container});
 
   const [current, setCurrent] = useState(0);
 
@@ -36,7 +52,7 @@ export default function Photo() {
 
 
   return (
-    <div className="relative flex items-center justify-center ">
+    <div className="relative flex items-center justify-center " ref={container}>
 
       <img
         ref={rightImgRef}

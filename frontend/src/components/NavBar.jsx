@@ -37,9 +37,9 @@ export default function NavBar() {
 
         {/* Left - Logo */} 
         <div className="flex-1 flex justify-start tracking-wider">
-          <div className="xl:text-6xl text-5xl font-logo brand-title"
+          <div className="xl:text-5xl text-5xl font-logo brand-title"
           style={{ textShadow: '-3px 3px 6px rgba(0, 0, 0, 0.2)' }}>
-            IMEX.SH
+            IMEX.<span className="text-[1.3rem] tracking-tighter">SEGHOUANI</span>
           </div>
         </div>
 
@@ -87,9 +87,9 @@ export default function NavBar() {
   
       <Outlet />
 
-      <div className="w-full bg-[#dbdbdb] brand-title text-center py-5.5 text-xl font-routes flex flex-col items-center justify-center">
-        &copy; {new Date().getFullYear()} © {new Date().getFullYear()} IMEX ~ ALGERIA
-        <h3 className="text-lg"></h3>
+      <div className="w-full border-1 border-black bg-[#dbdbdb] brand-title text-center py-5.5 text-xl font-routes flex flex-col items-center justify-center">
+        &copy; {new Date().getFullYear()} IMEX ~ ALGERIA
+        <h3 className="text-lg"></h3> 
         <h3 className="text-lg"></h3>
       </div>
     </div>
