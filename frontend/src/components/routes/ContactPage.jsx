@@ -221,7 +221,7 @@ export default function ContactPage() {
         <div className="bg-gradient-to-r from-[#ffffff] to-[#949494] rounded-xl p-8 shadow-lg" style={{ boxShadow: '0 10px 20px rgba(0,0,0,0.5)' }}>
           <h3 className="text-3xl mb-6 brand-title tracking-tighter text-center" style={{ textShadow: '3px -3px 6px rgba(0, 0, 0, 0.3)' }}>Find Us</h3>
           <div className="h-64 bg-gray-700 rounded-lg flex items-center justify-center">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13882.761832284736!2d3.247758057917714!3d36.769811754238134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e4f87df694a73%3A0xe777dd77b0123ca2!2sDergana%2C%20Bordj%20El%20Kiffan!5e1!3m2!1sen!2sdz!4v1767781496038!5m2!1sen!2sdz" width="600" height="450" style={{border: 0, width: 'full', height: 'full'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13882.761832284736!2d3.247758057917714!3d36.769811754238134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e4f87df694a73%3A0xe777dd77b0123ca2!2sDergana%2C%20Bordj%20El%20Kiffan!5e1!3m2!1sen!2sdz!4v1767781496038!5m2!1sen!2sdz" width="600" height="450" style={{border: 0, width: '100%' , height: '100%'}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
