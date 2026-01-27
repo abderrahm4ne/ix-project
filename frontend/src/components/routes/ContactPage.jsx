@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -11,6 +11,13 @@ import {
 } from "@mui/icons-material";
 import axios from 'axios'
 
+
+// gsap dependencies
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger as scrollTrigger } from "gsap/all";
+
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -22,6 +29,8 @@ export default function ContactPage() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  const itemsRef = useRef([]);
 
   const handleChange = (e) => {
     setFormData({
@@ -57,6 +66,33 @@ export default function ContactPage() {
     }
   };
 
+
+  gsap.registerPlugin(useGSAP, scrollTrigger);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+    scrollTrigger: {
+              trigger: itemsRef.current,
+              markers: true,
+              start: "top 50%",
+              end:"top 80%",
+              toggleActions: "play resume reverse resume"
+      }
+    })
+    
+    // console.log(itemsRef.current);
+    
+    tl.set(itemsRef.current[0], { opacity:0, x:-50 })
+    tl.set(itemsRef.current[1], { opacity:0, x:50 })
+    tl.set(itemsRef.current[2], { opacity:0, y:50 })
+
+    // animate items
+    tl.to(itemsRef.current[0], { opacity:1, y:0, x:0, duration:1, ease:"power4.out", }, 0)
+    tl.to(itemsRef.current[1], { opacity:1, y:0, x:0, duration:1, ease:"power4.out", }, 0)
+    tl.to(itemsRef.current[2], { opacity:1, y:0, duration:1, ease:"power4.out", delay: 1 }, 0)
+
+  }, [{scope: itemsRef}])
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#ffffff] to-[#949494] pb-20">
 
@@ -77,7 +113,7 @@ export default function ContactPage() {
         <div className="flex flex-col lg:flex-row gap-12">
           
           {/* Contact Form */}
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2" ref={i => (itemsRef.current[0] = i)}>
             <div className="bg-[#dbdbdb] rounded-xl p-8 shadow-lg" style={{ boxShadow: '0 10px 20px rgba(0,0,0,0.5)' }}>
               <h3 className="text-3xl mb-6 brand-title tracking-tighter" style={{ textShadow: '-2px 3px 6px rgba(0, 0, 0, 0.3)' }}>
                 Send Us a Message
@@ -154,7 +190,7 @@ export default function ContactPage() {
           </div>
           
           {/* Contact Information */}   
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2" ref={i => (itemsRef.current[1] = i)}>
             <div className="bg-[#dbdbdb] rounded-xl p-8 shadow-lg h-full" style={{ boxShadow: '0 10px 20px rgba(0,0,0,0.5)' }}>
               <h3 className="text-4xl mb-6 brand-title tracking-tighter" style={{ textShadow: '-1px -3px 6px rgba(0, 0, 0, 0.3)' }}>Contact Information</h3>
               
@@ -217,7 +253,7 @@ export default function ContactPage() {
       </div>
 
       {/* Map Section */}
-      <div className="container mx-auto px-6 mt-16">
+      <div className="container mx-auto px-6 mt-16" ref={i => (itemsRef.current[2] = i)}>
         <div className="bg-gradient-to-r from-[#ffffff] to-[#949494] rounded-xl p-8 shadow-lg" style={{ boxShadow: '0 10px 20px rgba(0,0,0,0.5)' }}>
           <h3 className="text-3xl mb-6 brand-title tracking-tighter text-center" style={{ textShadow: '3px -3px 6px rgba(0, 0, 0, 0.3)' }}>Find Us</h3>
           <div className="h-64 bg-gray-700 rounded-lg flex items-center justify-center">

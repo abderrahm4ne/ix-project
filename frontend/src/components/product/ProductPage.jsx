@@ -1,9 +1,14 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef} from "react";
+import { useParams, useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
+
+// gasp dependencies
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger as scrollTrigger } from "gsap/all";
 
 export default function ProductPage() {
   const { category, slug } = useParams();
@@ -17,6 +22,13 @@ export default function ProductPage() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [relatedProducts, setRelatedProducts] = useState([]);
+
+  gsap.registerPlugin(gsap, scrollTrigger)
+
+  // ref
+  const productDetailsRef = useRef([]);
+  const productsRef = useRef(null);
+
   
   useEffect(() => {
     const fetchProduct = async () => {
@@ -50,6 +62,17 @@ export default function ProductPage() {
     }
 
   }, [slug]);
+
+  useGSAP(() => {
+    {console.log("this is the ref ", productDetailsRef.current);
+    const tl = gsap.timeline({
+      
+    })
+    tl.set(productDetailsRef.current[0], { opacity: 0, x: -50})
+    tl.set(productDetailsRef.current[1], { opacity: 0, x: 50})}
+    
+
+  }, [])
 
 
   const getCart = () => {
@@ -161,7 +184,7 @@ export default function ProductPage() {
         <div className="flex flex-col lg:flex-row gap-10 mb-16">
 
           {/* Product Images */}
-          <div className="lg:w-1/2 border-1 border-black rounded-2xl">
+          <div className="lg:w-1/2 border-1 border-black rounded-2xl" ref={i => (productDetailsRef.current[0] = i)}>
             <div className="bg-[#dbdbdb] rounded-2xl p-6"
             style={{boxShadow:"-3px 3px 2px rgba(0, 0, 0, 0.3)"}}>
               <div className="bg-white rounded-md">
@@ -195,7 +218,7 @@ export default function ProductPage() {
           </div>
 
           {/* Product Info */}
-          <div className="lg:w-1/2 ">
+          <div className="lg:w-1/2 " ref={i => (productDetailsRef.current[1] = i)}>
             <div className=" bg-gradient-to-r from-[#ffffff] to-[#949494] rounded-2xl border-1 border-black p-6 shadow-lg">
               <h1 className="text-3xl md:text-4xl brand-title pt-3 pb-4">{product.name}</h1>
               <h3 className="text-xl font-bold text-black mr-4 mb-3"> <span className="text-[#cf5504]">Reference :</span> {product.reference}</h3>

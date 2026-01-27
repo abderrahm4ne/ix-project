@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
+// gsap dependecies
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger as scrollTrigger } from "gsap/all";
@@ -111,10 +112,10 @@ export default function ProductsPage() {
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: itemsRef.current,
-              markers: true,
+              markers: false,
               start: "top 80%",
               end:"top 50%",
-              toggleActions: "play resume "
+              toggleActions: "play resume reverse reset"
             }
           });
           tl.to(itemsRef.current, {
