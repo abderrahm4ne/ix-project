@@ -10,6 +10,7 @@ import AdminDashboard from './admin/AdminDashboard';
 import ProtectedRoute from './admin/auth/ProtectedRoute';
 import AdminProductsPage from './admin/AdminProductsPage';
 import AdminContactsPage from './admin/AdminContactsPage';
+import PdfGeneration from './admin/pdf-generation/pdfGeneration';
 
 function App() {
   const router = createBrowserRouter(
@@ -34,6 +35,7 @@ function App() {
           <Route path='admin-contacts' element={<AdminContactsPage />} />
 
         </Route>
+        <Route path='secret/admin/factora/pdf-generation' element={<PdfGeneration />} />
         <Route path='*' element={<h1 className='font-bold text-black text-5xl'>404 - Page Not Found</h1>} />
       </>
     )

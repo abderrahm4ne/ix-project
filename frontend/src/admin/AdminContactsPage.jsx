@@ -16,6 +16,9 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import { useNavigate } from "react-router-dom";
+import jsPDF from "jspdf";
+
 
 export default function AdminContactsPage() {
   const [messages, setMessages] = useState([]);
@@ -28,6 +31,8 @@ export default function AdminContactsPage() {
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogType, setDialogType] = useState(null);
   const [dialogData, setDialogData] = useState(null);
+
+  const navigate = useNavigate();
 
   // Filter states
   const [messageFilter, setMessageFilter] = useState('all');
@@ -795,7 +800,7 @@ export default function AdminContactsPage() {
                     <Divider sx={{ my: 2, backgroundColor: 'rgba(212, 175, 55, 0.3)' }} />
                     
                     <div>
-                      <Typography sx={{ color: '#f8f3e9', fontWeight: 'bold', mb: 2 }}>Order Items:</Typography>
+                      <Typography sx={{ color: '#f8f3e9', fontWeight: 'bold', mb: 2 }}>Order Items: <Button sx={{ color: '#f8f3e9',fontWeight: 'bold', mb: 0.5, backgroundColor: '#d4af37'}} onClick={() => navigate('/secret/admin/factora/pdf-generation', { state: { orderData: dialogData }})}>PDF generation</Button></Typography>
                       <div className="space-y-2 max-h-40 overflow-y-auto pr-2">
                         {dialogData.items?.map((item, index) => (
                           <div 
