@@ -452,14 +452,8 @@ export default function AdminContactsPage() {
                         <tr key={order._id} onClick={() => handleOpenDialog("order", order)} className="border-b border-white hover:cursor-pointer hover:bg-[#3a0202]">
                           <td className="p-4 font-mono text-lg">{order.orderNumber}</td>
                           <td className="p-4 text-lg">{order.customer.name}</td>
-                          <td className="p-4">
-                            <div className="max-w-xs">
-                              {order.items.map((item, index) => (
-                                <div key={index} className=" text-lg text-gray-300">
-                                  {item.quantity}x {item.name} ref: {item.reference}
-                                </div>
-                              ))}
-                            </div>
+                          <td className="p-4 text-lg text-gray-300">
+                            {order.items.reduce((acc, item) => acc + (item.quantity), 0)} items
                           </td>
                           <td className="p-4 text-xl">{order.total} DZD</td>
                           <td className="p-4">
@@ -713,7 +707,7 @@ export default function AdminContactsPage() {
         
         <DialogContent sx={{ p: 4 }}>
           {dialogData && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Customer Information Card */}
               <Card 
                 sx={{ 
@@ -800,16 +794,27 @@ export default function AdminContactsPage() {
                     <Divider sx={{ my: 2, backgroundColor: 'rgba(212, 175, 55, 0.3)' }} />
                     
                     <div>
-                      <Typography sx={{ color: '#f8f3e9', fontWeight: 'bold', mb: 2 }}>Order Items: <Button sx={{ color: '#f8f3e9',fontWeight: 'bold', mb: 0.5, backgroundColor: '#d4af37'}} onClick={() => navigate('/secret/admin/factora/pdf-generation', { state: { orderData: dialogData }})}>PDF generation</Button></Typography>
-                      <div className="space-y-2 max-h-40 overflow-y-auto pr-2">
+                      
+                      <div className="flex flex-row justify-between items-center mb-2">
+                        <Typography sx={{ color: '#f8f3e9', fontWeight: 'bold'}}>
+                          Order Items: 
+                        </Typography>
+
+                        <Button sx={{ color: '#f8f3e9',fontWeight: 'bold', backgroundColor: 'green'}} onClick={() => navigate('/secret/admin/factora/pdf-generation', { state: { orderData: dialogData }, target: '_blank'})}>
+                          PDF generation
+                        </Button>
+                      </div>
+                      
+
+                      <div className="space-y-2 max-h-60 overflow-y-auto pr-2">
                         {dialogData.items?.map((item, index) => (
                           <div 
                             key={index}
                             className="flex justify-between items-center p-2 rounded-lg"
                             style={{ backgroundColor: 'rgba(0,0,0,0.3)' }}
                           >
-                            <div>
-                              <Typography sx={{ color: '#f8f3e9', fontWeight: 'bold' }}>
+                            <div className="w-[350px]">
+                              <Typography sx={{ color: '#f8f3e9'}}>
                                 {item.quantity}x {item.name} ref: {item.reference}
                               </Typography>
                             </div>
@@ -819,6 +824,7 @@ export default function AdminContactsPage() {
                           </div>
                         ))}
                       </div>
+                      
                     </div>
                     
                     <Divider sx={{ my: 2, backgroundColor: 'rgba(212, 175, 55, 0.3)' }} />

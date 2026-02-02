@@ -71,11 +71,11 @@ export default function PdfGeneration() {
                 <tr key={index} className="h-8"> {/* Fixed height helps vertical alignment show better */}
                   <td className='border border-black pl-5 text-left align-baseline'>{item.reference}</td>
                   <td className='border border-black px-2 align-baseline'>
-                    { (orderData.total / (item.quantity || 1)).toFixed(2) }€
+                    { item.price }€
                   </td>
                   <td className='border border-black px-2 align-baseline'>{item.quantity || item.quantite}</td>
                   <td className='border border-black px-2 align-baseline font-semibold'>
-                    { ((item.quantity || item.quantite) * (orderData.total / (item.quantity || 1))).toFixed(2) } €
+                    { (item.price * (item.quantity)).toFixed(2) } €
                   </td>
                 </tr>
               ))}
