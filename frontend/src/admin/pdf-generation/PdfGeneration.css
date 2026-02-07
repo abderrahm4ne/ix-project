@@ -1,3 +1,8 @@
+/* Container and Page setup */
+*{
+    box-sizing: border-box;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;
@@ -6,21 +11,28 @@
     background-color: #e5e7eb;
 }
 
+.pdf-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .invoice-box {
     background-color: white;
     width: 794px;
-    min-height: 1123px;
-    padding: 1.75rem 2.5rem 0.75rem 2.5rem;
+    height: 1123px;
+    padding: 1.75rem 2.5rem 2.5rem 2.5rem;
     display: flex;
     flex-direction: column;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
+/* Typography */
 .bold-text { font-weight: 700; }
-
 .invoice-header { margin-bottom: 1.5rem; }
-.invoice-header h1 { font-size: 1.25rem; margin-bottom: 0.25rem; }
-.date-text { font-size: 1.1rem; }
+.invoice-header h1 { font-size: 1.25rem; margin: 0 0 0.25rem 0; }
+.date-text { font-size: 1.1rem; margin: 0; }
 
 .customer-info-card {
     border: 1px solid #d1d5db;
@@ -30,9 +42,9 @@
     background-color: #f3f4f6;
 }
 
-.customer-info-card p { margin: 0; padding: 0.125rem 0; }
-
-.table-container { width: 100%; }
+.table-container { 
+    width: 100%; 
+}
 
 .invoice-table {
     width: 100%;
@@ -43,36 +55,31 @@
 .invoice-table thead {
     font-size: 0.875rem;
     background-color: #f3f4f6;
-    text-transform: uppercase;
 }
 
-/* Updated for baseline alignment */
 .invoice-table th, 
 .invoice-table td {
     border: 1px solid black;
-    height: 2rem;
-    padding-top: 4px; /* Slight top padding so text isn't touching the line */
-}
-
-.align-baseline-cell {
-    vertical-align: baseline; /* This pushes the text to the top */
+    box-sizing: border-box;
+    height: 2.2rem;
 }
 
 .col-article {
-    padding-left: 1.25rem;
-    text-align: left;
     width: 50%;
+    text-align: left;
+    padding-left: 1.25rem !important;
 }
 
 .col-center {
-    text-align: center;
+    width: 16.66%;
+    text-align: center !important;
 }
 
 .font-bold-item { font-weight: 600; }
 
 .total-summary {
     margin-top: 1rem;
-    align-self: flex-end;
+    margin-left: auto;
     width: 33.333%;
 }
 
@@ -86,7 +93,7 @@
 .invoice-footer {
     margin-top: auto;
     text-align: center;
-    padding-top: 2.5rem;
+    padding-top: 1rem;
     font-size: 0.875rem;
 }
 
@@ -99,11 +106,9 @@
     font-size: 1.5rem;
     background-color: #1e40af;
     color: white;
-    padding: 0.5rem 1.25rem;
-    border-radius: 0.375rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.5rem;
     border: none;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    margin-top: 2rem;
 }
-
-.generate-btn:hover { transform: scale(1.02); }
