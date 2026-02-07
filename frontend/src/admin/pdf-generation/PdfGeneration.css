@@ -1,67 +1,38 @@
-/* Container Background */
 .page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-    background-color: #e5e7eb; /* gray-200 */
+    padding: 2.5rem 0;
+    background-color: #e5e7eb;
 }
 
-/* Invoice Sheet (A4 Dimensions) */
 .invoice-box {
     background-color: white;
     width: 794px;
     min-height: 1123px;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-    padding-bottom: 0.75rem;
-    padding-top: 1.75rem;
+    padding: 1.75rem 2.5rem 0.75rem 2.5rem;
     display: flex;
     flex-direction: column;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Typography */
-.bold-text {
-    font-weight: 700;
-}
+.bold-text { font-weight: 700; }
 
-.invoice-header {
-    margin-bottom: 1.5rem;
-}
+.invoice-header { margin-bottom: 1.5rem; }
+.invoice-header h1 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+.date-text { font-size: 1.1rem; }
 
-.invoice-header h1 {
-    font-size: 1.25rem;
-    margin-bottom: 0.25rem;
-}
-
-.date-text {
-    font-size: 1.1rem;
-}
-
-/* Customer Card */
 .customer-info-card {
     border: 1px solid #d1d5db;
     padding: 0.75rem 1rem;
     border-radius: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
     margin-bottom: 2rem;
     background-color: #f3f4f6;
 }
 
-.customer-info-card p {
-    padding-top: 0.125rem;
-    padding-bottom: 0.125rem;
-    margin: 0;
-}
+.customer-info-card p { margin: 0; padding: 0.125rem 0; }
 
-/* Table Styles */
-.table-container {
-    width: 100%;
-}
+.table-container { width: 100%; }
 
 .invoice-table {
     width: 100%;
@@ -75,11 +46,16 @@
     text-transform: uppercase;
 }
 
+/* Updated for baseline alignment */
 .invoice-table th, 
 .invoice-table td {
     border: 1px solid black;
     height: 2rem;
-    vertical-align: middle;
+    padding-top: 4px; /* Slight top padding so text isn't touching the line */
+}
+
+.align-baseline-cell {
+    vertical-align: baseline; /* This pushes the text to the top */
 }
 
 .col-article {
@@ -90,15 +66,10 @@
 
 .col-center {
     text-align: center;
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
 }
 
-.font-bold-item {
-    font-weight: 600;
-}
+.font-bold-item { font-weight: 600; }
 
-/* Total Summary */
 .total-summary {
     margin-top: 1rem;
     align-self: flex-end;
@@ -109,11 +80,9 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid black;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding: 0.25rem 0;
 }
 
-/* Footer Section */
 .invoice-footer {
     margin-top: auto;
     text-align: center;
@@ -124,15 +93,6 @@
 .footer-content {
     border-top: 1px solid #e5e7eb;
     padding-top: 1rem;
-}
-
-.page-number {
-    margin-top: 0.5rem;
-}
-
-/* Action Button */
-.button-container {
-    padding-top: 1.25rem;
 }
 
 .generate-btn {
@@ -146,10 +106,4 @@
     transition: transform 0.3s ease;
 }
 
-.generate-btn:hover {
-    transform: scale(1.02);
-}
-
-.no-data {
-    padding: 2.5rem;
-}
+.generate-btn:hover { transform: scale(1.02); }
