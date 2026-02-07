@@ -316,7 +316,7 @@ export default function AdminProductsPage() {
                           </div>
                         )}
                       </td>
-                      <td className="px-4 py-3 whitespace-normal break-words capitalize">{product.name}</td>
+                      <td className="px-4 py-3 whitespace-normal break-words capitalize text-white">{ (product.name).length > 20 ? (product.name).slice(0, 20) + ".." : product.name}</td>
                       <td className="px-4 py-3 whitespace-normal break-words capitalize">{product.reference}</td>
                       <td className="px-4 py-3 whitespace-normal break-words capitalize">{product.category}</td>
                       <td className="px-4 py-3 whitespace-normal break-words capitalize">{product.price} DZD</td>

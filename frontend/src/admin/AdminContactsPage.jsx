@@ -55,7 +55,7 @@ export default function AdminContactsPage() {
         { withCredentials: true }
       );
 
-      console.log(ordersRes)
+      // console.log(ordersRes)
 
       setMessages(messagesRes.data);
       setOrders(ordersRes.data);

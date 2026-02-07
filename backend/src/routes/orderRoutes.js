@@ -16,6 +16,7 @@ router.post("/Order", Ordervalidation, async (req, res) => {
     }
     catch(err){
         res.status(400).json({message: "error occured", err: err.message})
+        console.log({message: "error in api"})
     }
 })
 

@@ -10,7 +10,7 @@ import AdminDashboard from './admin/AdminDashboard';
 import ProtectedRoute from './admin/auth/ProtectedRoute';
 import AdminProductsPage from './admin/AdminProductsPage';
 import AdminContactsPage from './admin/AdminContactsPage';
-import PdfGeneration from './admin/pdf-generation/pdfGeneration';
+import PdfGeneration from './admin/pdf-generation/PdfGeneration';
 
 function App() {
   const router = createBrowserRouter(

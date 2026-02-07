@@ -6,10 +6,10 @@ import adminAuthentication from '../middlewares/auth.js'
 const router = express.Router();
 
 router.post('/send-message', validateContact, async (req, res) => {
-    console.log('req recieved', req.body)
+    // console.log('req recieved', req.body)
     try{
         const contact = new Contact(req.body);
-        console.log(contact)    
+        // console.log(contact)    
         await contact.save();
         res.status(201).json({message: "message sent successfully", contact});
     }

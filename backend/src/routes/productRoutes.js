@@ -57,7 +57,7 @@ router.post('/admin/add/product', adminAuthentication, async (req, res) => {
 
         await product.save();
 
-        console.log('Product saved successfully:', product);
+        // console.log('Product saved successfully:', product);
 
         res.status(201).json({ 
             message: 'Product added successfully', 
@@ -106,7 +106,7 @@ router.put('/admin/update/product/:id', adminAuthentication, async (req, res) =>
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        console.log('Product updated successfully:', product);
+        // console.log('Product updated successfully:', product);
 
         res.status(200).json({ 
             message: 'Product updated successfully', 
