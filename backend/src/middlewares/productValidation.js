@@ -1,8 +1,9 @@
+
 const productValidation = (req, res, next) => {
     
     const { name, description, reference, price, category, mainImage, stock } = req.body;
 
-    if( !name || !description || !price || !category || !image || stock === undefined ) {
+    if( !name || !description || !price || !priceEuro || !category || !image || stock === undefined ) {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
@@ -19,6 +20,10 @@ const productValidation = (req, res, next) => {
     }
 
     if(typeof price !== 'number' || price <= 0) {
+        return res.status(400).json({ message: 'Invalid product price' });
+    }
+
+    if(typeof priceEuro !== 'number' || price <= 0) {
         return res.status(400).json({ message: 'Invalid product price' });
     }
 

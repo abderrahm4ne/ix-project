@@ -65,6 +65,7 @@ export default function AdminProductsPage() {
         description: product.description,
         reference: product.reference,
         price: product.price,
+        priceEuro: product.priceEuro,
         category: product.category,
         images: product.images || [],
         stock: product.stock,
@@ -76,6 +77,7 @@ export default function AdminProductsPage() {
         description: "",
         reference: "",
         price: "",
+        priceEuro: "",
         category: "",
         images: [],
         stock: ""
@@ -166,6 +168,7 @@ export default function AdminProductsPage() {
         formData.description.trim() === "" ||
         formData.reference.trim() === "" ||
         formData.price === "" || 
+        formData.priceEuro === "" ||
         formData.category.trim() === "" ||
         formData.stock === ""
       ) {
@@ -285,6 +288,7 @@ export default function AdminProductsPage() {
                     <th className="text-left p-4 creamy">Reference</th>
                     <th className="text-left p-4 creamy">Category</th>
                     <th className="text-left p-4 creamy">Price</th>
+                    <th className="text-left p-4 creamy">Euro</th>
                     <th className="text-left p-4 creamy">Stock</th>
                     <th className="text-left p-4 creamy">Actions</th>
                   </tr>
@@ -320,6 +324,7 @@ export default function AdminProductsPage() {
                       <td className="px-4 py-3 whitespace-normal break-words capitalize">{product.reference}</td>
                       <td className="px-4 py-3 whitespace-normal break-words capitalize">{product.category}</td>
                       <td className="px-4 py-3 whitespace-normal break-words capitalize">{product.price} DZD</td>
+                      <td className="px-4 py-3 whitespace-normal break-words capitalize">{product.priceEuro} DZD</td>
                       <td className="px-4 py-3 whitespace-normal break-words capitalize">
                         <span className={`px-2 py-1 rounded-full text-md ${
                           product.stock > 0 ? 'bg-green-900 text-green-300' : 'bg-red-900 text-red-300'
@@ -432,6 +437,27 @@ export default function AdminProductsPage() {
                 name="price"
                 type="number"
                 value={formData.price}
+                onChange={handleInputChange}
+                required
+                fullWidth
+                InputLabelProps={{ style: { color: '#f8f3e9', fontSize: '1.15rem' } }}
+                inputProps={{ style: { color: 'white', fontSize: '1.3rem', } }}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                    "& fieldset": { borderColor: "#f8f3e9" },
+                    "&:hover fieldset": { borderColor: "#d4af37 !important" },
+                    "&.Mui-focused fieldset": { borderColor: "#d4af37 !important" },
+                  },
+                }}
+              />
+
+              {/* Price Euro */}
+              <TextField
+                label="Price Euro"
+                name="Price Euro"
+                type="number"
+                value={formData.priceEuro}
                 onChange={handleInputChange}
                 required
                 fullWidth

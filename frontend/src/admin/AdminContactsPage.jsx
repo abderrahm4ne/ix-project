@@ -17,7 +17,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { useNavigate } from "react-router-dom";
-import jsPDF from "jspdf";
 
 
 export default function AdminContactsPage() {

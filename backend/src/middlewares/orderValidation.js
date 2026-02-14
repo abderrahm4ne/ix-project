@@ -1,5 +1,5 @@
 const OrderValidation = (req, res, next) => {
-  const { customer, items} = req.body;
+  const { customer, items } = req.body;
 
   if (!customer) {
     return res.status(400).json({ message: "Missing customer data" });

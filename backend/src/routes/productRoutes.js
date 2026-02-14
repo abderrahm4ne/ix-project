@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../models/users.js'
 import adminAuthentication from '../middlewares/auth.js';
 import Product from '../models/products.js';
+import { parse } from 'path';
 
 const router = express.Router();
 
@@ -49,6 +50,7 @@ router.post('/admin/add/product', adminAuthentication, async (req, res) => {
             description,
             reference,
             price: parseInt(price),
+            priceEuro,
             category,
             mainImage: images[0], // Set mainImage to first image
             images: images,
@@ -63,6 +65,7 @@ router.post('/admin/add/product', adminAuthentication, async (req, res) => {
             message: 'Product added successfully', 
             product 
         });
+        
     } catch (err) {
         console.error('Add product error:', err);
         res.status(500).json({ 
@@ -74,11 +77,11 @@ router.post('/admin/add/product', adminAuthentication, async (req, res) => {
 
 router.put('/admin/update/product/:id', adminAuthentication, async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, category, images, stock } = req.body;
+    const { name, description, price, priceEuro, category, images, stock } = req.body;
 
 
     try {
-        if (!name || !description || (!price || price === 0) || !category || (!stock || stock === 0)) {
+        if (!name || !description || (!price || price === 0) || (!priceEuro || priceEuro === 0) || !category || (!stock || stock === 0)) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
@@ -90,6 +93,7 @@ router.put('/admin/update/product/:id', adminAuthentication, async (req, res) =>
             name,
             description,
             price: parseInt(price),
+            priceEuro: parseInt(priceEuro),
             category,
             images: images,
             mainImage: images[0],

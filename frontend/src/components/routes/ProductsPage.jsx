@@ -107,17 +107,8 @@ export default function ProductsPage() {
   useGSAP( () => {
     if(filteredProducts === null || filteredProducts.length === 0) return;
 
-      for (let i = 0; i < itemsRef.current.length; i++ ) {
         gsap.set(itemsRef.current, { opacity: 0, y: 20 });
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: itemsRef.current,
-              markers: false,
-              start: "top 80%",
-              end:"top 50%",
-              toggleActions: "play resume reverse reset"
-            }
-          });
+          const tl = gsap.timeline();
           tl.to(itemsRef.current, {
             opacity: 1,
             y: 0,
@@ -128,9 +119,8 @@ export default function ProductsPage() {
                 each:0.2,
             }
         });
-      }
         
-  }, {dependencies: [filteredProducts, packets], scope: itemsRef});
+  }, {dependencies: [filteredProducts, products], scope: itemsRef});
 
 
 
