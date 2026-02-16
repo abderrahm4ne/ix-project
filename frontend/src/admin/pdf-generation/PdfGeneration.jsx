@@ -15,6 +15,8 @@ export default function PdfGeneration() {
   const firstPageItems = allItems.slice(0, 28);
   const secondPageItems = allItems.slice(28);
 // aedasdasd
+// dasd
+// z
   const formatDate = (dateString) => {
     if (!dateString) return '';
     return new Date(dateString).toLocaleDateString('en-US', {
