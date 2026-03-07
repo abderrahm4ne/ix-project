@@ -40,7 +40,7 @@ router.get("/products/category/:category", async (req, res) => {
 
 router.post('/admin/add/product', adminAuthentication, async (req, res) => {
     try {
-        const { name, description, reference, price, category, images, stock } = req.body;
+        const { name, description, reference, priceEuro, price, category, images, stock } = req.body;
 
 
         // Create product with mainImage set to first image
@@ -49,7 +49,7 @@ router.post('/admin/add/product', adminAuthentication, async (req, res) => {
             description,
             reference,
             price: parseInt(price),
-            priceEuro,
+            priceEuro: parseInt(priceEuro),
             category,
             // mainImage: images[0], // Set mainImage to first image
             images: images,
@@ -92,7 +92,7 @@ router.put('/admin/update/product/:id', adminAuthentication, async (req, res) =>
             name,
             description,
             price: parseInt(price),
-            priceEuro: parseInt(priceEuro),
+            priceEuro: priceEuro ? parseInt(priceEuro) : 0,
             category,
             images: images,
             mainImage: images[0],
