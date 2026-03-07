@@ -48,7 +48,7 @@ router.post('/admin/add/product', adminAuthentication, async (req, res) => {
             name,
             description,
             reference,
-            price: parseInt(price),
+            priceEuro: priceEuro ? parseInt(priceEuro) : 0,
             priceEuro: parseInt(priceEuro),
             category,
             // mainImage: images[0], // Set mainImage to first image
