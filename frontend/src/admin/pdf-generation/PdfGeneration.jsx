@@ -11,6 +11,7 @@ export default function PdfGeneration() {
   const allItems = orderData?.items || [];
   const [ euroFactor, setEuroFactor ] = useState(false);
   const pdfRef = useRef(null);
+  
 
   const firstPageItems = allItems.slice(0, 28);
   const secondPageItems = allItems.slice(28);

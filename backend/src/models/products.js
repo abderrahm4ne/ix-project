@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema(
     stock: { type: Number, required: true, default: 0 },
     images: { 
       type: [String], 
-      required: true,
+      required: false,
       validate: {
         validator: function(images) {
           return images.length > 0;

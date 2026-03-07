@@ -11,6 +11,7 @@ import axios from "axios";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -19,12 +20,16 @@ export default function AdminProductsPage() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [uploading, setUploading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("ALL");
+  const [searchQuery, setSearchQuery] = useState("");
+
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     reference: "",
     price: "",
+    priceEuro: "",
     category: "",
     images: [],
     stock: "",
@@ -168,7 +173,7 @@ export default function AdminProductsPage() {
         formData.description.trim() === "" ||
         formData.reference.trim() === "" ||
         formData.price === "" || 
-        formData.priceEuro === "" ||
+        /* formData.priceEuro === ""  ||*/
         formData.category.trim() === "" ||
         formData.stock === ""
       ) {
@@ -232,6 +237,27 @@ export default function AdminProductsPage() {
     }
   };
 
+    useEffect(() => {
+    let filtered = products;
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query)
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [products, selectedCategory, searchQuery]);
+
+    const clearSearch = () => {
+    setSearchQuery("");
+    // Remove search query from URL without page reload
+    navigate('/products', { replace: true });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#ffffff] to-[#949494] text-white pb-20">
       {/* Header */}
@@ -254,7 +280,38 @@ export default function AdminProductsPage() {
           </Button>
         </div>
       </div>
-
+      <div className="container mx-auto px-6 mb-8">
+        <div className="flex justify-center">
+          <div className="relative w-full max-w-2xl">
+            <input
+              type="text"
+              placeholder="Search products by name or description..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-6 py-3 rounded-full bg-transparent border-2 border-[#3B3B3B] text-[#3B3B3B] placeholder-[#3B3B3B] outline-0 focus:ring-0.5 text-2xl"
+            />
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#3B3B3B] hover:text-[#000000] transition-colors font-bold text-2xl hover:cursor-pointer"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        </div>
+        
+        {/* Search Results Info */}
+        {searchQuery && (
+          <div className="text-center mt-4">
+            <p className="brand-title text-lg">
+              {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''} found for "{searchQuery}"
+              {filteredProducts.length === 0 && " - Try a different search term"}
+            </p>
+          </div>
+        )}
+      </div>
+        
       {/* Products Table */}
       <div className="container mx-auto px-6">
         <div className="bg-[#000000] rounded-2xl p-6 shadow-lg border border-[#f8f3e9]">
@@ -294,7 +351,7 @@ export default function AdminProductsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {products.map(product => (
+                  {filteredProducts.map(product => (
                     <tr key={product._id} className="border-b border-white hover:bg-[#141414] hover:cursor-pointer">
                       <td className="p-4">
                         {product.images && product.images.length > 0 ? (

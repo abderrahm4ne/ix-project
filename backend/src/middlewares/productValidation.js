@@ -22,18 +22,18 @@ const productValidation = (req, res, next) => {
     if(typeof price !== 'number' || price <= 0) {
         return res.status(400).json({ message: 'Invalid product price' });
     }
-
-    if(typeof priceEuro !== 'number' || price <= 0) {
+    
+    /*if(typeof priceEuro !== 'number' || price <= 0) {
         return res.status(400).json({ message: 'Invalid product price' });
-    }
+    } */
 
     if(typeof category !== 'string' || category.trim().length < 1) {
         return res.status(400).json({ message: 'Invalid product category' });
     }
 
-    if(typeof mainImage !== 'string' || mainImage.trim().length < 1) {
+    /*if(typeof mainImage !== 'string' || mainImage.trim().length < 1) {
         return res.status(400).json({ message: 'Invalid product image' });
-    }
+    }*/
 
     if(typeof stock !== 'number' || stock < 0) {
         return res.status(400).json({ message: 'Invalid product stock' });

@@ -2,7 +2,6 @@ import express from 'express';
 import User from '../models/users.js'
 import adminAuthentication from '../middlewares/auth.js';
 import Product from '../models/products.js';
-import { parse } from 'path';
 
 const router = express.Router();
 
@@ -52,7 +51,7 @@ router.post('/admin/add/product', adminAuthentication, async (req, res) => {
             price: parseInt(price),
             priceEuro,
             category,
-            mainImage: images[0], // Set mainImage to first image
+            // mainImage: images[0], // Set mainImage to first image
             images: images,
             stock: parseInt(stock)
         });
@@ -81,13 +80,13 @@ router.put('/admin/update/product/:id', adminAuthentication, async (req, res) =>
 
 
     try {
-        if (!name || !description || (!price || price === 0) || (!priceEuro || priceEuro === 0) || !category || (!stock || stock === 0)) {
+        if (!name || !description || (!price || price === 0) /* || (!priceEuro || priceEuro === 0) */|| !category || (!stock || stock === 0)) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        if (!Array.isArray(images) || images.length === 0) {
+        /*if (!Array.isArray(images) || images.length === 0) {
             return res.status(400).json({ message: 'At least one image is required' });
-        }
+        }*/
 
         const updateData = {
             name,

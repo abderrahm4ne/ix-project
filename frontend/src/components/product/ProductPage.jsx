@@ -27,7 +27,6 @@ export default function ProductPage() {
 
   // ref
   const productDetailsRef = useRef([]);
-  const productsRef = useRef(null);
 
   
   useEffect(() => {
