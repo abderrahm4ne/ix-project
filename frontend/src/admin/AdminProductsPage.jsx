@@ -173,7 +173,6 @@ export default function AdminProductsPage() {
         formData.description.trim() === "" ||
         formData.reference.trim() === "" ||
         formData.price === "" || 
-        /* formData.priceEuro === ""  ||*/
         formData.category.trim() === "" ||
         formData.stock === ""
       ) {
@@ -192,6 +191,7 @@ export default function AdminProductsPage() {
         description: formData.description,
         reference: formData.reference,
         price: parseInt(formData.price),
+        priceEuro: 15,
         category: formData.category,
         images: formData.images,
         stock: parseInt(formData.stock)
