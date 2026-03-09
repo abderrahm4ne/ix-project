@@ -1,7 +1,8 @@
 const productValidation = (req, res, next) => {
     const { name, description, reference, price, category, stock } = req.body;
 
-    if (!name || !description || !reference || !price || !category || stock === undefined) {
+    // Check presence only — don't check typeof since JSON parsing can vary
+    if (!name || !description || !reference || price === undefined || price === "" || !category || stock === undefined || stock === "") {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
@@ -14,13 +15,15 @@ const productValidation = (req, res, next) => {
     if (typeof description !== 'string' || description.trim().length < 1)
         return res.status(400).json({ message: 'Invalid product description' });
 
-    if (typeof price !== 'number' || price <= 0)
+    const parsedPrice = Number(price);
+    if (isNaN(parsedPrice) || parsedPrice <= 0)
         return res.status(400).json({ message: 'Invalid product price' });
 
     if (typeof category !== 'string' || category.trim().length < 1)
         return res.status(400).json({ message: 'Invalid product category' });
 
-    if (typeof stock !== 'number' || stock < 0)
+    const parsedStock = Number(stock);
+    if (isNaN(parsedStock) || parsedStock < 0)
         return res.status(400).json({ message: 'Invalid product stock' });
 
     next();
