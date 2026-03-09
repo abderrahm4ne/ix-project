@@ -77,3 +77,22 @@ td, th {
 .image-container-img {
   object-fit:cover;
 }
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, [role="button"] {
+  touch-action: manipulation;
+}
+
+button:active,
+a:active {
+  transform: scale(0.96);
+  opacity: 0.85;
+  transition: transform 0.08s ease, opacity 0.08s ease;
+}
+a:has(button:active) {
+  transform: none;
+  opacity: 1;
+}

@@ -73,7 +73,7 @@ export default function ContactPage() {
     const tl = gsap.timeline({
     scrollTrigger: {
               trigger: itemsRef.current,
-              markers: true,
+              markers: false,
               start: "top 50%",
               end:"top 80%",
               toggleActions: "play resume reverse resume"

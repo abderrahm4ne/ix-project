@@ -238,7 +238,7 @@ export default function ProductPage() {
                 <span className="mr-4 text-xl brand-title font-bold">Quantity:</span>
                 <div className="flex items-center border border-[#000000] rounded-full">
                   <button 
-                    className="w-10 h-10 flex items-center justify-center text-creamy hover:bg-[#949494] hover:text-[#2c0101] transition-colors rounded-l-full hover:cursor-pointer"
+                    className="w-12 h-12 flex items-center justify-center text-creamy hover:bg-[#949494] hover:text-[#2c0101] transition-colors rounded-l-full hover:cursor-pointer"
                     onClick={decrementQuantity}
                     disabled={quantity <= 1}
                   >
@@ -246,7 +246,7 @@ export default function ProductPage() {
                   </button>
                   <span className="w-12 text-center text-lg font-bold">{quantity}</span>
                   <button 
-                    className="w-10 h-10 flex items-center justify-center text-creamy hover:bg-[#949494] hover:text-[#2c0101] transition-colors rounded-r-full hover:cursor-pointer"
+                    className="w-12 h-12 flex items-center justify-center text-creamy hover:bg-[#949494] hover:text-[#2c0101] transition-colors rounded-r-full hover:cursor-pointer"
                     onClick={incrementQuantity}
                   >
                     <i className="fas fa-plus"></i>

@@ -26,23 +26,32 @@ export default function HomePage() {
            }}>
           "Your first stop for IMEX products in Algeria - offering premium quality, competitive prices, and reliable service."
         </p>
-        <Button size="lg" 
-                variant='contained' 
-                style={{ 
-                  backgroundColor: '#3B3B3B', 
-                  textTransform: 'none', 
-                  padding: '15px 25px', 
-                  fontSize: '1.8rem', 
-                  marginTop: '10px', 
-                  width: '100%',  
-                  textAlign: 'center', 
-                  color: "#f5f5f5", 
-                  border: "1px solid #161616"
-                }} 
-                className='btn hover:bg-orange-600 transition-colors' 
-                onClick={() => (navigate('/products'))}>
-          Order Now
-        </Button>
+        <Button
+            onClick={() => navigate('/products')}
+            style={{
+              backgroundColor: '#3B3B3B',
+              textTransform: 'none',
+              padding: '15px 25px',
+              fontSize: '1.8rem',
+              marginTop: '10px',
+              width: '100%',
+              color: "#f5f5f5",
+              border: "1px solid #161616",
+              transition: 'transform 0.1s ease, background-color 0.2s ease',
+              WebkitTapHighlightColor: 'transparent',
+            }}
+            sx={{
+              '&:active': {
+                transform: 'scale(0.97)',
+                backgroundColor: '#cf5504 !important',
+              },
+              '&:hover': {
+                backgroundColor: '#cf5504',
+              }
+            }}
+          >
+            Order Now
+          </Button>
 
       </div>
 

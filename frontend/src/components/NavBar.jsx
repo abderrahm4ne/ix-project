@@ -70,16 +70,16 @@ export default function NavBar() {
         </div>
       </div>
 
-<div className="flex flex-col relative z-10">
+      <div className="flex flex-col relative z-10">
         <div
             ref={menuRef}
             className="sm:hidden absolute top-full left-0 right-0 bg-gradient-to-b from-[#ffffff] to-[#949494] border-b flex flex-col z-50"
         >
-                <NavLink to="" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 border-b w-full" onClick={() => setMenuOpen(false)}>HOME</NavLink>
-                <NavLink to="products" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 border-b w-full" onClick={() => setMenuOpen(false)}>PRODUCTS</NavLink>
-                <NavLink to="contact" className="font-bold ham-menu text-center font-routes brand-title text-[1rem] py-3 w-full" onClick={() => setMenuOpen(false)}>CONTACT</NavLink> 
-              </div>
-</div>
+                <NavLink to="" className="font-bold sm:hidden p-2 ham-menu text-center font-routes brand-title text-[1rem] py-3 border-b w-full" style={{ minHeight: '52px' }} onClick={() => setMenuOpen(false)}>HOME</NavLink>
+                <NavLink to="products" className="font-bold sm:hidden p-2 ham-menu text-center font-routes brand-title text-[1rem] py-3 border-b w-full" style={{ minHeight: '52px' }} onClick={() => setMenuOpen(false)}>PRODUCTS</NavLink>
+                <NavLink to="contact" className="font-bold sm:hidden p-2 ham-menu text-center font-routes brand-title text-[1rem] py-3 w-full" style={{ minHeight: '52px' }} onClick={() => setMenuOpen(false)}>CONTACT</NavLink> 
+        </div>
+      </div>
       {/* Mobile Menu */}
       
 

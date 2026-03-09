@@ -303,9 +303,15 @@ export default function ProductsPage() {
                         <div className="flex justify-between items-center">
                           <span className="text-2xl font-bold text-red-600">{product.price} DZD</span>
                           <button 
-                            className="px-5 bg-[#cf5504] py-3 rounded-full text-[#ffffff] hover:bg-[#2b2b2b] border-1 border-black transition-all btn hover:cursor-pointer text-xl"
+                            className="px-5 bg-[#cf5504] py-3 rounded-full text-[#ffffff] border-1 border-black text-xl transition-all hover:cursor-pointer active:scale-98 active:bg-[#8a3802] hover:bg-[#f36405]"
+                            style={{ 
+                              WebkitTapHighlightColor: 'transparent',
+                              touchAction: 'manipulation'
+                            }}
                             onClick={(e) => {
                               e.preventDefault();
+                              // Add haptic feedback on supported devices
+                              if (navigator.vibrate) navigator.vibrate(30);
                               addToCart(product);
                             }}
                           >

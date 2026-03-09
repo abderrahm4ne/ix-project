@@ -1,23 +1,38 @@
 import { useLocation } from 'react-router-dom';
 import jsPDF from 'jspdf';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 import './PdfGeneration.css';
 import Button from "@mui/material/Button";
+
+const ITEMS_PER_FIRST_PAGE = 24;
+const ITEMS_PER_PAGE = 30; // subsequent pages can fit more (no header)
 
 export default function PdfGeneration() {
   const location = useLocation();
   const orderData = location.state?.orderData;
   const allItems = orderData?.items || [];
-  const [ euroFactor, setEuroFactor ] = useState(false);
+  const [euroFactor, setEuroFactor] = useState(false);
   const pdfRef = useRef(null);
-  
 
-  const firstPageItems = allItems.slice(0, 28);
-  const secondPageItems = allItems.slice(28);
+  // --- Chunk items into pages ---
+  const buildPages = () => {
+    if (allItems.length === 0) return [[]];
+    const pages = [];
+    // First page
+    pages.push(allItems.slice(0, ITEMS_PER_FIRST_PAGE));
+    // Remaining pages
+    let cursor = ITEMS_PER_FIRST_PAGE;
+    while (cursor < allItems.length) {
+      pages.push(allItems.slice(cursor, cursor + ITEMS_PER_PAGE));
+      cursor += ITEMS_PER_PAGE;
+    }
+    return pages;
+  };
 
+  const pages = buildPages();
+  const totalPages = pages.length;
 
-  // testing branching with adding new branch
   const formatDate = (dateString) => {
     if (!dateString) return '';
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -25,35 +40,35 @@ export default function PdfGeneration() {
     });
   };
 
-  const changeFactor = () => {
-    setEuroFactor(!euroFactor)
-  }
-
+  // --- PDF Generation: capture each page div separately ---
   const generatePDF = async () => {
     const element = pdfRef.current;
     if (!element) return;
 
-    const canvas = await html2canvas(element, {
-      scale: 1,
-      useCORS: true,
-      windowWidth: 794,
-    });
+    // Grab each rendered page div by data attribute
+    const pageDivs = element.querySelectorAll('[data-pdf-page]');
+    if (pageDivs.length === 0) return;
 
-    const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'px',
-      format: 'a4'
+      format: 'a4',
     });
 
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
 
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight * (secondPageItems.length > 0 ? 2 : 1));
+    for (let i = 0; i < pageDivs.length; i++) {
+      const canvas = await html2canvas(pageDivs[i], {
+        scale: 1,
+        useCORS: true,
+        windowWidth: 794,
+      });
 
-    if (secondPageItems.length > 0) {
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, -pdfHeight, pdfWidth, pdfHeight * 2);
+      const imgData = canvas.toDataURL('image/png');
+
+      if (i > 0) pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     }
 
     pdf.save(`invoice_${orderData?.orderNumber || 'unknown'}.pdf`);
@@ -64,7 +79,7 @@ export default function PdfGeneration() {
       <tr>
         <th className='col-article align-baseline-cell'>ARTICLE</th>
         <th className='col-center align-baseline-cell'>QUANTITE</th>
-        {!euroFactor && <td className='col-center align-baseline'>PRIX UNITAIRE</td>}
+        {!euroFactor && <th className='col-center align-baseline-cell'>PRIX UNITAIRE</th>}
       </tr>
     </thead>
   );
@@ -73,62 +88,92 @@ export default function PdfGeneration() {
 
   return (
     <div className='page-container'>
-      
-      <Button onClick={() => { changeFactor() }}> Change Factor</Button>
+      <Button onClick={() => setEuroFactor(!euroFactor)}>Change Factor</Button>
+
       <div ref={pdfRef} className="pdf-wrapper">
-        
-        {/* --- PAGE 1 --- */}
-        <div className='invoice-box'>
 
-         {!euroFactor && 
-         <div className="invoice-header">
-            <h1><span className='bold-text tracking-wider'>FACTURE :</span> {"FACTURE-" + (orderData?.orderNumber?.slice(6, 9) || '000')}</h1>
-            <h2 className='date-text'><span className='bold-text'>DATE : </span>{formatDate(orderData?.createdAt)}</h2>
-          </div>} 
-          
-          {!euroFactor && 
-          <div className='customer-info-card'>
-            <p><span className='bold-text'>CLIENT :</span> {orderData?.customer?.name}</p>
-            <p><span className='bold-text'>TELEPHONE :</span> {orderData?.customer?.phone}</p>
-            <p><span className='bold-text'>ADRESSE :</span> {orderData?.customer?.address}</p>
-          </div>}
-          
+        {pages.map((pageItems, pageIndex) => {
+          const isFirstPage = pageIndex === 0;
+          const isLastPage = pageIndex === totalPages - 1;
 
-          <div className='table-container'>
-            <table className='invoice-table'>
+          return (
+            <div
+              key={pageIndex}
+              className='invoice-box'
+              data-pdf-page={pageIndex}
+              style={{ marginTop: pageIndex > 0 ? '0' : undefined }}
+            >
+              {/* Header: only on first page */}
+              {isFirstPage && !euroFactor && (
+                <div className="invoice-header">
+                  <h1>
+                    <span className='bold-text tracking-wider'>FACTURE :</span>{' '}
+                    {'FACTURE-' + (orderData?.orderNumber?.slice(6, 9) || '000')}
+                  </h1>
+                  <h2 className='date-text'>
+                    <span className='bold-text'>DATE : </span>
+                    {formatDate(orderData?.createdAt)}
+                  </h2>
+                </div>
+              )}
 
-              <TableHeader />
+              {/* Table */}
+              <div
+                className='table-container'
+                style={!isFirstPage ? { paddingTop: '40px' } : undefined}
+              >
+                <table className='invoice-table'>
+                  {/* Show header on every page for readability */}
+                  <TableHeader />
+                  <tbody>
+                    {pageItems.map((item, index) => (
+                      <tr key={index}>
+                        <td className='col-article align-baseline'>
+                          {item.name || item.reference}
+                        </td>
+                        <td className='col-center align-baseline'>
+                          {item.quantity ?? item.quantite}
+                        </td>
+                        {!euroFactor && (
+                          <td className='col-center align-baseline'>{item.price}</td>
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-              <tbody>
-                {firstPageItems.map((item, index) => (
-                  <tr key={index}>
-                    <td className='col-article align-baseline'>{item.name}</td>
-                    <td className='col-center align-baseline'>{item.quantity}</td>
-                    {!euroFactor && <td className='col-center align-baseline'>{item.price}</td>}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              {/* Footer + Total: only on last page */}
+              {isLastPage && (
+                <>
+                  <div className='total-summary'>
+                    <div className='total-row'>
+                      <span>Total:</span>
+                      <span className='bold-text'>{orderData.total} DA</span>
+                    </div>
+                  </div>
+                  <div className='invoice-footer'>
+                    <div className="footer-content">
+                      Merci pour votre confiance !<br />SEGHOUANI ABDENOUR
+                    </div>
+                    <div className="page-number">
+                      page: {totalPages}/{totalPages}
+                    </div>
+                  </div>
+                </>
+              )}
 
-        {/* --- PAGE 2 (Conditional) --- */}
-        {secondPageItems.length > 0 && (
-          <div className='invoice-box' style={{ marginTop: '0' }}>
-            <div className='table-container' style={{ paddingTop: '40px' }}>
-              <table className='invoice-table'>
-                <tbody>
-                  {secondPageItems.map((item, index) => (
-                    <tr key={index}>
-                      <td className='col-article align-baseline'>{item.reference}</td>
-                      <td className='col-center align-baseline'>{item.quantity || item.quantite}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              {/* Page number on non-last pages */}
+              {!isLastPage && (
+                <div className='invoice-footer'>
+                  <div className="page-number">
+                    page: {pageIndex + 1}/{totalPages}
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })}
       </div>
 
       <div className='button-container'>
