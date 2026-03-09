@@ -174,7 +174,7 @@ export default function AdminProductsPage() {
         formData.name.trim() === "" ||
         formData.description.trim() === "" ||
         formData.reference.trim() === "" ||
-        formData.price === "" || 
+        (parseInt(formData.price) != 0 && formData.price === "" ) || 
         formData.category.trim() === "" ||
         formData.stock === ""
       ) {
