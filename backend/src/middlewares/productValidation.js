@@ -1,7 +1,7 @@
 
 const productValidation = (req, res, next) => {
     
-    const { name, description, reference, price, category, mainImage, stock } = req.body;
+    const { name, description, reference, price, category, stock } = req.body;
 
     if( !name || !description || !price || !priceEuro || !category || !image || stock === undefined ) {
         return res.status(400).json({ message: 'All fields are required' });

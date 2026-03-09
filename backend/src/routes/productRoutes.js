@@ -77,7 +77,7 @@ router.post('/admin/add/product', adminAuthentication, productValidation, async 
 
 router.put('/admin/update/product/:id', adminAuthentication, productValidation, async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, priceEuro, category, images, stock } = req.body;
+    const { name, description, reference, price, priceEuro, category, images, stock } = req.body;
 
 
     try {

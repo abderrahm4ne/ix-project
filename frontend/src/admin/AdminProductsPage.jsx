@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
+import { useNavigate, NavLink } from "react-router-dom";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState([]);
@@ -22,6 +23,7 @@ export default function AdminProductsPage() {
   const [uploading, setUploading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
 
   const [formData, setFormData] = useState({
@@ -511,8 +513,8 @@ export default function AdminProductsPage() {
 
               {/* Price Euro */}
               <TextField
-                label="Price Euro"
-                name="Price Euro"
+                label="priceEuro"
+                name="priceEuro"
                 type="number"
                 value={formData.priceEuro}
                 onChange={handleInputChange}
