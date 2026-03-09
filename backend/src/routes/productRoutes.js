@@ -79,16 +79,7 @@ router.put('/admin/update/product/:id', adminAuthentication, productValidation, 
     const { id } = req.params;
     const { name, description, reference, price, priceEuro, category, images, stock } = req.body;
 
-
     try {
-        if (!name || !description || (!price || price === 0) /* || (!priceEuro || priceEuro === 0) */|| !category || (!stock || stock === 0)) {
-            return res.status(400).json({ message: 'All fields are required' });
-        }
-
-        if (!Array.isArray(images) || images.length === 0) {
-            return res.status(400).json({ message: 'At least one image is required' });
-        }
-
         const updateData = {
             name,
             description,
@@ -111,20 +102,13 @@ router.put('/admin/update/product/:id', adminAuthentication, productValidation, 
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        // console.log('Product updated successfully:', product);
+        res.status(200).json({ message: 'Product updated successfully', product });
 
-        res.status(200).json({ 
-            message: 'Product updated successfully', 
-            product 
-        });
     } catch (err) {
-        console.error('Update product error:', err);
-        res.status(500).json({ 
-            message: 'Internal server error', 
-            error: err.message 
-        });
+        console.error('Update product error:', err); // ✅ shows exact error in Render logs
+        res.status(500).json({ message: 'Internal server error', error: err.message });
     }
-})
+});
 
 router.delete('/admin/delete/product/:id', adminAuthentication, async (req, res) => {
     const { id } = req.params;
