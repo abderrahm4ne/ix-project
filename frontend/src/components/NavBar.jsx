@@ -4,15 +4,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
 import { useRef, useEffect } from "react";
-import { duration } from "@mui/material/styles";
 
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
 
   const menuRef = useRef(null);
 

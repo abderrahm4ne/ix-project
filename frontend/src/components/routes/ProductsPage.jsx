@@ -230,7 +230,7 @@ export default function ProductsPage() {
       {/* Category Filters */}
       <div className="container justify-center mx-auto px-6 mb-12">
         <div className="flex flex-wrap justify-center items-baseline space-x-4 space-y-3 md:space-x-8 font-routes ">
-          {["ALL", "DOUCHE", "COLOGNE", "AVABO", "DOUCHE ENCASTRE", "ROBINET DE BAIN"].map(category => (
+          {["ALL", "PISA", "MONZA", "SEUCIA", "LINE", "BANERA"].map(category => (
             <button
               key={category}
               className={`px-4 py-2 rounded-full btn transition-all text-xl ${

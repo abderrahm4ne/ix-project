@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../models/users.js'
 import adminAuthentication from '../middlewares/auth.js';
 import Product from '../models/products.js';
+import productValidation from '../middlewares/productValidation.js';
 
 const router = express.Router();
 
@@ -38,7 +39,7 @@ router.get("/products/category/:category", async (req, res) => {
   }
 });
 
-router.post('/admin/add/product', adminAuthentication, async (req, res) => {
+router.post('/admin/add/product', adminAuthentication, productValidation, async (req, res) => {
     try {
         const { name, description, reference, price, priceEuro, category, images, stock } = req.body;
 
@@ -74,7 +75,7 @@ router.post('/admin/add/product', adminAuthentication, async (req, res) => {
     }
 })
 
-router.put('/admin/update/product/:id', adminAuthentication, async (req, res) => {
+router.put('/admin/update/product/:id', adminAuthentication, productValidation, async (req, res) => {
     const { id } = req.params;
     const { name, description, price, priceEuro, category, images, stock } = req.body;
 
@@ -84,13 +85,14 @@ router.put('/admin/update/product/:id', adminAuthentication, async (req, res) =>
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        /*if (!Array.isArray(images) || images.length === 0) {
+        if (!Array.isArray(images) || images.length === 0) {
             return res.status(400).json({ message: 'At least one image is required' });
-        }*/
+        }
 
         const updateData = {
             name,
             description,
+            reference,
             price: parseInt(price),
             priceEuro: priceEuro ? parseInt(priceEuro) : 0,
             category,
