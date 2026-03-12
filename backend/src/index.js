@@ -22,22 +22,29 @@ dotenv.config()
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+}));
 
 const allowedOrigins = [
-
-];
+  'http://localhost:5173',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
 
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.use(cors(
-    {
-        origin: ['http://localhost:5173', process.env.FRONTEND_URL],
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true,
-
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked: ${origin}`));
     }
-))
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 

@@ -45,10 +45,15 @@ router.post('/register', validateUser, async (req, res) => {
 });
 
 router.post('/admin/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, phone, password } = req.body;
+
+    if (!password || (!email && !phone)) {
+        return res.status(400).json({ message: 'Email or phone and password are required' });
+    }
     
     try{
-        const user = await User.findOne({ email });
+        const query = email ? { email } : { phone };
+        const user = await User.findOne(query);
 
         if(!user){
             return res.status(400).json({ message : 'User not found'})
@@ -73,7 +78,7 @@ router.post('/admin/login', async (req, res) => {
         maxAge: 60 * 60 * 1000
         });
 
-        res.status(200).json({ message : 'Login successful', token: token})
+        res.status(200).json({ message : 'Login successful'})
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
