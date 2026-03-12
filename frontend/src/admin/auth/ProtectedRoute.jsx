@@ -22,8 +22,7 @@ export default function ProtectedRoute({ children }) {
   }
 
   if (!isVerified) {
-    alert("You must be logged in as an admin to access this page.");
-    return <Navigate to="/secret/admin" replace />;
+    return <Navigate to="/secret/admin" replace />
   }
 
   return children;
