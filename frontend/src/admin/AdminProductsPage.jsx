@@ -132,10 +132,10 @@ export default function AdminProductsPage() {
       showSnackbar("Please fill in all required fields", "error");
       return;
     }
-    if (formData.images.length === 0) {
+    /* if (formData.images.length === 0) {
       showSnackbar("Please upload at least one product image", "error");
       return;
-    }
+    } */
     try {
       const productData = {
         name: formData.name,
