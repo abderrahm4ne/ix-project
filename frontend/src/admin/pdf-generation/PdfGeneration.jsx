@@ -144,7 +144,7 @@ export default function PdfGeneration() {
               </div>
 
               {/* Footer + Total: only on last page */}
-              {isLastPage && (
+              {isLastPage && !euroFactor && (
                 <>
                   <div className='total-summary'>
                     <div className='total-row'>

@@ -87,7 +87,8 @@ router.post('/admin/login', async (req, res) => {
 
 router.get('/admin/verify', (req, res) => {
   const token = req.cookies.adminToken;
-
+    console.log("ENV:", process.env.NODE_ENV);
+    console.log("Cookies received:", req.cookies);
   if (!token) {
     return res.status(401).json({ valid: false, message: 'No token' });
   }
