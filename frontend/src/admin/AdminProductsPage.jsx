@@ -132,10 +132,10 @@ export default function AdminProductsPage() {
       showSnackbar("Please fill in all required fields", "error");
       return;
     }
-    if (formData.images.length === 0) {
+    /* if (formData.images.length === 0) {
       showSnackbar("Please upload at least one product image", "error");
       return;
-    }
+    } */
     try {
       const productData = {
         name: formData.name,
@@ -426,7 +426,7 @@ export default function AdminProductsPage() {
           </DialogContent>
           <DialogActions className="flex flex-col sm:flex-row gap-2 px-4 pb-4">
             <Button onClick={handleCloseDialog} style={{ backgroundColor: '#f8f3e9', color: '#000000', fontSize: '1rem', minWidth: '140px' }}>Cancel</Button>
-            <Button onClick={handleSubmit} disabled={uploading || formData.images.length === 0}
+            <Button onClick={handleSubmit}
               style={{ backgroundColor: uploading || formData.images.length === 0 ? '#555' : '#014713', color: '#ffffff', fontSize: '1rem', minWidth: '160px' }}>
               {uploading ? 'Processing...' : editingProduct ? 'Update' : 'Add'} Product
             </Button>

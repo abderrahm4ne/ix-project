@@ -1,7 +1,6 @@
 const productValidation = (req, res, next) => {
     const { name, description, reference, price, category, stock } = req.body;
 
-    // Check presence only — don't check typeof since JSON parsing can vary
     if (!name || !description || !reference || price === undefined || price === "" || !category || stock === undefined || stock === "") {
         return res.status(400).json({ message: 'All fields are required' });
     }

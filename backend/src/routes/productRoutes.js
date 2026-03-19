@@ -53,7 +53,7 @@ router.post('/admin/add/product', adminAuthentication, productValidation, async 
             priceEuro: priceEuro ? parseInt(priceEuro) : 0,
             category,
             mainImage: images && images.length > 0 ? images[0] : null, // Set mainImage to first image
-            images: images,
+            images: images ?? null,
             stock: parseInt(stock)
         });
 
@@ -87,7 +87,7 @@ router.put('/admin/update/product/:id', adminAuthentication, productValidation, 
             price: parseInt(price),
             priceEuro: priceEuro ? parseInt(priceEuro) : 0,
             category,
-            images: images,
+            images: images ?? null,
             mainImage: images && images.length > 0 ? images[0] : null,
             stock: parseInt(stock)
         };
